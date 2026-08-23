@@ -121,62 +121,62 @@ public class DataSeeder implements CommandLineRunner {
         category.addMenuItem(item1);
 
         MenuItem item2 = new MenuItem(category, "Schinken Tomaten", "Ham & Tomato", 2);
-        item1.setPrice(BigDecimal.valueOf(8.00));
+        item2.setPrice(BigDecimal.valueOf(8.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item2);
 
         MenuItem item3 = new MenuItem(category, "Pute Tomaten", "Turkey & Tomato", 3);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item3.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item3);
 
         MenuItem item4 = new MenuItem(category, "Pute Ananas", "Turkey & Pineapple", 4);
-        item1.setPrice(BigDecimal.valueOf(8.00));
+        item4.setPrice(BigDecimal.valueOf(8.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item4);
 
         MenuItem item5 = new MenuItem(category, "Pute Bacon", "Turkey Bacon", 5);
-        item1.setPrice(BigDecimal.valueOf(8.00));
+        item5.setPrice(BigDecimal.valueOf(8.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item5);
 
         MenuItem item6 = new MenuItem(category, "Salami", "Salami", 6);
-        item1.setPrice(BigDecimal.valueOf(8.00));
+        item6.setPrice(BigDecimal.valueOf(8.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item6);
 
         MenuItem item7 = new MenuItem(category, "Thunfisch", "Tuna", 7);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item7.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item7);
 
         MenuItem item8 = new MenuItem(category, "Crispy Chicken", "Crispy Chicken", 8);
-        item1.setPrice(BigDecimal.valueOf(9.00));
+        item8.setPrice(BigDecimal.valueOf(9.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item8);
 
         MenuItem item9 = new MenuItem(category, "Schafskäse", "Feta Cheese", 9);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item9.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item9);
 
         MenuItem item10 = new MenuItem(category, "Ziegenkäse", "Goat Cheese", 10);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item10.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item10);
 
         MenuItem item11 = new MenuItem(category, "Mozzarella", "Mozzarella", 11);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item11.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item11);
 
         MenuItem item12 = new MenuItem(category, "Camembert", "Camembert", 12);
-        item1.setPrice(BigDecimal.valueOf(8.50));
+        item12.setPrice(BigDecimal.valueOf(8.50));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item12);
 
         MenuItem item13 = new MenuItem(category, "Frikadelle", "Meatball", 13);
-        item1.setPrice(BigDecimal.valueOf(8.00));
+        item13.setPrice(BigDecimal.valueOf(8.00));
         //item5.setImageUrl("path/to/your/image.jpg");
         category.addMenuItem(item13);
 
