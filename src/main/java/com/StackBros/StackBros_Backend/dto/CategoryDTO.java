@@ -14,7 +14,7 @@ public record CategoryDTO(
         List<MenuItemDTO> items
 ){
     public static CategoryDTO MenuCategoryEntityToDTO(Category category) {
-        List<MenuItemDTO> items = category.getItems().stream()
+        List<MenuItemDTO> items = category.getMenuItems().stream()
                 .filter(MenuItem::isAvailable)
                 .sorted(Comparator.comparing(MenuItem::getSortOrder))
                 .map(item -> new MenuItemDTO(
@@ -28,7 +28,7 @@ public record CategoryDTO(
                 .toList();
 
         return new CategoryDTO(
-                category.getKey(),
+                category.getCategoryKey(),
                 new LocalizedText(category.getEyebrowDe(), category.getEyebrowEn()),
                 new LocalizedText(category.getTitleDe(), category.getTitleEn()),
                 new LocalizedText(category.getNoteDe(), category.getNoteEn()),

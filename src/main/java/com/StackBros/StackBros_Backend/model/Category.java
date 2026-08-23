@@ -19,7 +19,7 @@ public class Category {
 
 
     @Column(nullable = false, unique = true)
-    private String key;
+    private String categoryKey;
 
     @Column(nullable = false)
     private String eyebrowDe;
@@ -48,8 +48,8 @@ public class Category {
 
     }
 
-    public Category(String key, String eyebrowDe, String eyebrowEn, String titleDe, String titleEn, Integer sortOrder) {
-        this.key = key;
+    public Category(String categoryKey, String eyebrowDe, String eyebrowEn, String titleDe, String titleEn, Integer sortOrder) {
+        this.categoryKey = categoryKey;
         this.eyebrowDe = eyebrowDe;
         this.eyebrowEn = eyebrowEn;
         this.titleDe = titleDe;

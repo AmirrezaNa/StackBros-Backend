@@ -2,7 +2,7 @@ package com.StackBros.StackBros_Backend.controller;
 
 
 import com.StackBros.StackBros_Backend.dto.CategoryDTO;
-import com.StackBros.StackBros_Backend.repository.MenuCategoryRepository;
+import com.StackBros.StackBros_Backend.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +11,9 @@ import java.util.List;
 @RestController
 public class MenuController {
 
-    private final MenuCategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public MenuController(MenuCategoryRepository categoryRepository) {
+    public MenuController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 

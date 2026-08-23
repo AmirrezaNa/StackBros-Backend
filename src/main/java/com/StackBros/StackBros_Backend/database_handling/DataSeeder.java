@@ -2,7 +2,7 @@ package com.StackBros.StackBros_Backend.database_handling;
 
 import com.StackBros.StackBros_Backend.model.Category;
 import com.StackBros.StackBros_Backend.model.MenuItem;
-import com.StackBros.StackBros_Backend.repository.MenuCategoryRepository;
+import com.StackBros.StackBros_Backend.repository.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 @Component
 public class DataSeeder implements CommandLineRunner {
 
-    private final MenuCategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public DataSeeder(MenuCategoryRepository categoryRepository) {
+    public DataSeeder(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -23,109 +23,190 @@ public class DataSeeder implements CommandLineRunner {
             return; // already seeded
         }
 
-        categoryRepository.save(burgerCategory());
-        categoryRepository.save(saladCategory());
-        categoryRepository.save(croqueCategory());
-        categoryRepository.save(crepeCategory());
+        createCategories();
     }
 
-    private Category burgerCategory() {
-        Category category = new Category();
-        category.setKey("burger");
-        category.setEyebrowDe("Burger");
-        category.setEyebrowEn("Burgers");
-        category.setTitleDe("Burger");
-        category.setTitleEn("Burgers");
-        category.setNoteDe("Hausgemachte Burger frisch zubereitet.");
-        category.setNoteEn("Homemade burgers freshly prepared.");
-        category.setSortOrder(1);
 
-        addItem(category, "Stack Bros Spezial", "Stack Bros Special", "../../images/burger.JPG", 1);
-        addItem(category, "Cheeseburger", "Cheeseburger", "../../images/burger.JPG", 2);
-        addItem(category, "Mushroom Burger", "Mushroom Burger", "../../images/burger.JPG", 3);
-        addItem(category, "Bacon Burger", "Bacon Burger", "../../images/burger.JPG", 4);
-        addItem(category, "Chicken Burger", "Chicken Burger", "../../images/burger.JPG", 5);
+    public void createCategories() {
+        Category burgerCat = new Category("burger", "Burger", "Burgers", "Burger", "Burgers", 1);
+        burgerCat.setNoteDe("Hausgemachte Burger frisch zubereitet.");
+        burgerCat.setNoteEn("Homemade burgers freshly prepared.");
+        categoryRepository.save(burgerCat);
+        burgerCategory(burgerCat);
 
-        return category;
+        Category saladCat = new Category("salat", "Salat", "Salads", "Salate", "Salads", 2);
+        saladCat.setNoteDe("Frische und knackige Salate.");
+        saladCat.setNoteEn("Fresh and crisp salads.");
+        categoryRepository.save(saladCat);
+        saladCategory(saladCat);
+
+        Category croqueCat = new Category("croque", "Croque", "Croques", "Croques", "Croques", 3);
+        croqueCat.setNoteDe("Mittagsangebot: Jeder Croque + Getränk nur 10,99 €");
+        croqueCat.setNoteEn("Lunch Offer: Any Croque + Drink for only €10.99");
+        categoryRepository.save(croqueCat);
+        croqueCategory(croqueCat);
+
+        Category crepeCat = new Category("crepe", "Crêpe", "Crêpes", "Crêpes", "Crêpes", 4);
+        crepeCat.setNoteDe("Süße Crêpes zum Genießen.");
+        crepeCat.setNoteEn("Sweet crêpes to enjoy.");
+        categoryRepository.save(crepeCat);
+        crepeCategory(crepeCat);
+
+    }
+    private void burgerCategory(Category category) {
+
+        MenuItem item1 = new MenuItem(category, "Stack Bros Spezial", "Stack Bros Special", 1);
+        item1.setPrice(BigDecimal.valueOf(21.99));
+        //item1.setImageUrl("../../images/burger.JPG");
+        category.addMenuItem(item1);
+
+        MenuItem item2 = new MenuItem(category, "Cheeseburger", "Cheeseburger", 2);
+        item2.setPrice(BigDecimal.valueOf(15.00));
+        //item2.setImageUrl("../../images/burger.JPG");
+        category.addMenuItem(item2);
+
+        MenuItem item3 = new MenuItem(category, "Mushroom Burger", "Mushroom Burger", 3);
+        item3.setPrice(BigDecimal.valueOf(16.00));
+        //item3.setImageUrl("../../images/burger.JPG");
+        category.addMenuItem(item3);
+
+        MenuItem item4 = new MenuItem(category, "Bacon Burger", "Bacon Burger", 4);
+        item4.setPrice(BigDecimal.valueOf(16.00));
+        //item4.setImageUrl("../../images/burger.JPG");
+        category.addMenuItem(item4);
+
+        MenuItem item5 = new MenuItem(category, "Chicken Burger", "Chicken Burger", 5);
+        item5.setPrice(BigDecimal.valueOf(15.00));
+        //item5.setImageUrl("../../images/burger.JPG");
+        category.addMenuItem(item5);
+
+        categoryRepository.save(category);
     }
 
-    private Category saladCategory() {
-        Category category = new Category();
-        category.setKey("salat");
-        category.setEyebrowDe("Salat");
-        category.setEyebrowEn("Salads");
-        category.setTitleDe("Salate");
-        category.setTitleEn("Salads");
-        category.setNoteDe("Frische und knackige Salate.");
-        category.setNoteEn("Fresh and crisp salads.");
-        category.setSortOrder(2);
+    private void saladCategory(Category category) {
 
-        addItem(category, "Caesar Salat mit Hähnchen", "Caesar Salad with Chicken", "../../images/CaesarSalat.JPG", 1);
-        addItem(category, "Thunfisch Salat", "Tuna Salad", "path/to/your/image.jpg", 2);
-        addItem(category, "Ziegenkäse Salat", "Goat Cheese Salad", "path/to/your/image.jpg", 3);
-        addItem(category, "Schafskäse Salat", "Feta Cheese Salad", "../../images/Schafskäse.JPG", 4);
-        addItem(category, "Chef Salat", "Chef Salad", "path/to/your/image.jpg", 5);
+        MenuItem item1 = new MenuItem(category, "Caesar Salat mit Hähnchen", "Caesar Salad with Chicken", 1);
+        item1.setPrice(BigDecimal.valueOf(15.90));
+        //item1.setImageUrl("../../images/CaesarSalat.JPG");
+        category.addMenuItem(item1);
 
-        return category;
+        MenuItem item2 = new MenuItem(category, "Thunfisch Salat", "Tuna Salad", 2);
+        item2.setPrice(BigDecimal.valueOf(12.90));
+        //item2.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item2);
+
+        MenuItem item3 = new MenuItem(category, "Ziegenkäse Salat", "Goat Cheese Salad", 3);
+        item3.setPrice(BigDecimal.valueOf(11.50));
+        //item3.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item3);
+
+        MenuItem item4 = new MenuItem(category, "Schafskäse Salat", "Feta Cheese Salad", 4);
+        item4.setPrice(BigDecimal.valueOf(11.50));
+        //item4.setImageUrl("../../images/Schafskäse.JPG");
+        category.addMenuItem(item4);
+
+        MenuItem item5 = new MenuItem(category, "Chef Salat", "Chef Salad", 5);
+        item5.setPrice(BigDecimal.valueOf(15.90));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item5);
+
+        categoryRepository.save(category);
     }
 
-    private Category croqueCategory() {
-        Category category = new Category();
-        category.setKey("croque");
-        category.setEyebrowDe("Croque");
-        category.setEyebrowEn("Croques");
-        category.setTitleDe("Croques");
-        category.setTitleEn("Croques");
-        category.setNoteDe("Mittagsangebot: Jeder Croque + Getränk nur 10,99 €");
-        category.setNoteEn("Lunch Offer: Any Croque + Drink for only €10.99");
-        category.setSortOrder(3);
+    private void croqueCategory(Category category) {
 
-        addItem(category, "Hawaii", "Hawaiian", "../../images/Hawaii.JPG", 1);
-        addItem(category, "Schinken Tomaten", "Ham & Tomato", "../../images/Schinken.JPG", 2);
-        addItem(category, "Pute Tomaten", "Turkey & Tomato", "../../images/PuteTomaten.JPG", 3);
-        addItem(category, "Pute Ananas", "Turkey & Pineapple", "../../images/PuteAnanas.JPG", 4);
-        addItem(category, "Pute Bacon", "Turkey Bacon", "../../images/PuteBacon.JPG", 5);
-        addItem(category, "Salami", "Salami", "../../images/Salami.JPG", 6);
-        addItem(category, "Thunfisch", "Tuna", "../../images/Thunfisch.JPG", 7);
-        addItem(category, "Crispy Chicken", "Crispy Chicken", "../../images/CrispyChicken.JPG", 8);
-        addItem(category, "Schafskäse", "Feta Cheese", "../../images/Schafskäse.JPG", 9);
-        addItem(category, "Ziegenkäse", "Goat Cheese", "../../images/Ziegenkäse.JPG", 10);
-        addItem(category, "Mozzarella", "Mozzarella", "../../images/Mozzarella.JPG", 11);
-        addItem(category, "Camembert", "Camembert", "../../images/Camembert.JPG", 12);
-        addItem(category, "Frikadelle", "Meatball", "../../images/Frikadelle.JPG", 13);
+        MenuItem item1 = new MenuItem(category, "Hawaii", "Hawaiian", 1);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item1);
 
-        return category;
+        MenuItem item2 = new MenuItem(category, "Schinken Tomaten", "Ham & Tomato", 2);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item2);
+
+        MenuItem item3 = new MenuItem(category, "Pute Tomaten", "Turkey & Tomato", 3);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item3);
+
+        MenuItem item4 = new MenuItem(category, "Pute Ananas", "Turkey & Pineapple", 4);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item4);
+
+        MenuItem item5 = new MenuItem(category, "Pute Bacon", "Turkey Bacon", 5);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item5);
+
+        MenuItem item6 = new MenuItem(category, "Salami", "Salami", 6);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item6);
+
+        MenuItem item7 = new MenuItem(category, "Thunfisch", "Tuna", 7);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item7);
+
+        MenuItem item8 = new MenuItem(category, "Crispy Chicken", "Crispy Chicken", 8);
+        item1.setPrice(BigDecimal.valueOf(9.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item8);
+
+        MenuItem item9 = new MenuItem(category, "Schafskäse", "Feta Cheese", 9);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item9);
+
+        MenuItem item10 = new MenuItem(category, "Ziegenkäse", "Goat Cheese", 10);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item10);
+
+        MenuItem item11 = new MenuItem(category, "Mozzarella", "Mozzarella", 11);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item11);
+
+        MenuItem item12 = new MenuItem(category, "Camembert", "Camembert", 12);
+        item1.setPrice(BigDecimal.valueOf(8.50));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item12);
+
+        MenuItem item13 = new MenuItem(category, "Frikadelle", "Meatball", 13);
+        item1.setPrice(BigDecimal.valueOf(8.00));
+        //item5.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item13);
+
+        categoryRepository.save(category);
+
     }
 
-    private Category crepeCategory() {
-        Category category = new Category();
-        category.setKey("crepe");
-        category.setEyebrowDe("Crêpe");
-        category.setEyebrowEn("Crêpes");
-        category.setTitleDe("Crêpes");
-        category.setTitleEn("Crêpes");
-        category.setNoteDe("Süße Crêpes zum Genießen.");
-        category.setNoteEn("Sweet crêpes to enjoy.");
-        category.setSortOrder(4);
+    private void crepeCategory(Category category) {
 
-        addItem(category, "Nutella", "Nutella", "path/to/your/image.jpg", 1);
-        addItem(category, "Nutella-Banane", "Nutella & Banana", "path/to/your/image.jpg", 2);
-        addItem(category, "Apfelmus", "Applesauce", "path/to/your/image.jpg", 3);
-        addItem(category, "Zimt-Zucker", "Cinnamon & Sugar", "path/to/your/image.jpg", 4);
+        MenuItem item1 = new MenuItem(category, "Nutella", "Nutella", 1);
+        item1.setPrice(BigDecimal.valueOf(5.50));
+        //item1.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item1);
 
-        return category;
-    }
+        MenuItem item2 = new MenuItem(category, "Nutella-Banane", "Nutella & Banana", 2);
+        item2.setPrice(BigDecimal.valueOf(6.50));
+        //item2.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item2);
 
-    private void addItem(Category category, String nameDe, String nameEn, String imageUrl, int sortOrder) {
-        MenuItem item = new MenuItem();
-        item.setCategory(category);
-        item.setNameDe(nameDe);
-        item.setNameEn(nameEn);
-        item.setDescDe("");
-        item.setDescEn("");
-        item.setPrice(BigDecimal.ZERO); // TODO: replace with real price
-        item.setImageUrl(imageUrl);
-        item.setSortOrder(sortOrder);
-        category.getItems().add(item);
+        MenuItem item3 = new MenuItem(category, "Apfelmus", "Applesauce", 3);
+        item3.setPrice(BigDecimal.valueOf(5.00));
+        //item3.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item3);
+
+        MenuItem item4 = new MenuItem(category, "Zimt-Zucker", "Cinnamon & Sugar", 4);
+        item4.setPrice(BigDecimal.valueOf(4.50));
+        //item4.setImageUrl("path/to/your/image.jpg");
+        category.addMenuItem(item4);
+
+        categoryRepository.save(category);
+
     }
 }
