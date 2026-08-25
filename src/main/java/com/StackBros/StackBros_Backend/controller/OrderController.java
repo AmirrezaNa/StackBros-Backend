@@ -1,5 +1,7 @@
 package com.StackBros.StackBros_Backend.controller;
 
+import com.StackBros.StackBros_Backend.delivery.DeliveryQuoteResult;
+import com.StackBros.StackBros_Backend.delivery.DeliveryQuoteService;
 import com.StackBros.StackBros_Backend.dto.CreateOrderDTO;
 import com.StackBros.StackBros_Backend.dto.OrderItemDTO;
 import com.StackBros.StackBros_Backend.dto.OrderDTO;
@@ -21,10 +23,12 @@ public class OrderController {
 
     private final OrderRepository orderRepository;
     private final MenuItemRepository menuItemRepository;
+    private final DeliveryQuoteService deliveryQuoteService;
 
-    public OrderController(OrderRepository orderRepository, MenuItemRepository menuItemRepository) {
+    public OrderController(OrderRepository orderRepository, MenuItemRepository menuItemRepository, DeliveryQuoteService deliveryQuoteService) {
         this.orderRepository = orderRepository;
         this.menuItemRepository = menuItemRepository;
+        this.deliveryQuoteService = deliveryQuoteService;
     }
 
     @PostMapping("/api/orders")
@@ -51,9 +55,16 @@ public class OrderController {
             order.setDeliveryStreet(request.deliveryStreet());
             order.setDeliveryPostalCode(request.deliveryPostalCode());
             order.setDeliveryCity(request.deliveryCity());
-            // Distance + fee calculation comes in the next step (delivery pricing service).
-            // Placeholder for now so order creation works end-to-end.
-            order.setDeliveryFee(BigDecimal.ZERO);
+
+            DeliveryQuoteResult quote = deliveryQuoteService.quote(
+                    request.deliveryStreet(), request.deliveryPostalCode(), request.deliveryCity());
+
+            if (!quote.deliverable()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, quote.message());
+            }
+
+            order.setDeliveryDistanceKm(quote.distanceKm());
+            order.setDeliveryFee(quote.fee());
         }
 
         BigDecimal itemsTotal = BigDecimal.ZERO;
